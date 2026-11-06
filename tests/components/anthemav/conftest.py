@@ -7,7 +7,7 @@ import pytest
 from pytest_homeassistant.common import MockConfigEntry
 
 from homeassistant.components.anthemav.const import DOMAIN
-from homeassistant.const import CONF_HOST, CONF_MAC, CONF_MODEL, CONF_PORT
+from homeassistant.const import CONF_HOST, CONF_MAC, CONF_MODEL, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant
 
 
@@ -67,15 +67,23 @@ def mock_config_entry() -> MockConfigEntry:
 
 
 @pytest.fixture
+def platforms() -> list[Platform]:
+    """Platforms loaded by init_integration; tests parametrize this."""
+    return [Platform.MEDIA_PLAYER]
+
+
+@pytest.fixture
 async def init_integration(
     hass: HomeAssistant,
     mock_config_entry: MockConfigEntry,
     mock_connection_create: AsyncMock,
+    platforms: list[Platform],
 ) -> MockConfigEntry:
     """Set up the AnthemAv integration for testing."""
     mock_config_entry.add_to_hass(hass)
 
-    await hass.config_entries.async_setup(mock_config_entry.entry_id)
+    with patch("homeassistant.components.anthemav.PLATFORMS", platforms):
+        await hass.config_entries.async_setup(mock_config_entry.entry_id)
     await hass.async_block_till_done()
 
     return mock_config_entry

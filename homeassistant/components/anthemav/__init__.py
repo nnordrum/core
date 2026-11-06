@@ -24,7 +24,13 @@ from .const import ANTHEMAV_UPDATE_SIGNAL, DEVICE_TIMEOUT_SECONDS, DOMAIN, MANUF
 
 type AnthemavConfigEntry = ConfigEntry[anthemav.Connection]
 
-PLATFORMS = [Platform.MEDIA_PLAYER]
+PLATFORMS = [
+    Platform.MEDIA_PLAYER,
+    Platform.NUMBER,
+    Platform.SELECT,
+    Platform.SENSOR,
+    Platform.SWITCH,
+]
 
 _LOGGER = logging.getLogger(__name__)
 
