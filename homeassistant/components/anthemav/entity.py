@@ -1,5 +1,7 @@
 """Base class for receiver-level entities (attached to the receiver device, not a zone)."""
 
+from typing import override
+
 from homeassistant.const import CONF_MAC
 from homeassistant.core import callback
 from homeassistant.helpers import device_registry as dr
@@ -28,6 +30,7 @@ class AnthemavReceiverEntity(Entity):
             connections={(dr.CONNECTION_NETWORK_MAC, mac_address)},
         )
 
+    @override
     async def async_added_to_hass(self) -> None:
         """Subscribe to receiver updates."""
         self.async_on_remove(

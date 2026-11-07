@@ -1,5 +1,7 @@
 """Input format sensors for Anthem receivers."""
 
+from typing import override
+
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -41,6 +43,8 @@ class AnthemavFormatSensor(AnthemavReceiverEntity, SensorEntity):
         self._prop = prop
 
     @property
+    @override
     def native_value(self) -> str | None:
         """Return the current value."""
-        return getattr(self._avr, self._prop) or None
+        value: str | None = getattr(self._avr, self._prop)
+        return value or None

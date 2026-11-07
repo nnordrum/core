@@ -1,5 +1,7 @@
 """Front panel brightness for Anthem receivers."""
 
+from typing import override
+
 from homeassistant.components.number import NumberEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -31,10 +33,13 @@ class AnthemavPanelBrightness(AnthemavReceiverEntity, NumberEntity):
         super().__init__(config_entry, "panel_brightness")
 
     @property
+    @override
     def native_value(self) -> float | None:
         """Return the current value."""
-        return self._avr.panel_brightness
+        value: float | None = self._avr.panel_brightness
+        return value
 
+    @override
     async def async_set_native_value(self, value: float) -> None:
         """Update the entity."""
         self._avr.panel_brightness = int(value)

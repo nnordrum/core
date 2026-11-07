@@ -1,6 +1,6 @@
 """Standby IP control and ARC room correction switches."""
 
-from typing import Any
+from typing import Any, override
 
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.core import HomeAssistant
@@ -36,14 +36,17 @@ class AnthemavStandbyIPControl(AnthemavReceiverEntity, SwitchEntity):
         super().__init__(config_entry, "standby_ip_control")
 
     @property
+    @override
     def is_on(self) -> bool:
         """Return true if the switch is on."""
         return bool(self._avr.standby_control)
 
+    @override
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Update the entity."""
         self._avr.standby_control = True
 
+    @override
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Update the entity."""
         self._avr.standby_control = False
@@ -59,14 +62,17 @@ class AnthemavARC(AnthemavReceiverEntity, SwitchEntity):
         super().__init__(config_entry, "arc")
 
     @property
+    @override
     def is_on(self) -> bool:
         """Return true if the switch is on."""
         return bool(self._avr.arc)
 
+    @override
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Update the entity."""
         self._avr.arc = True
 
+    @override
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Update the entity."""
         self._avr.arc = False

@@ -1,5 +1,7 @@
 """Select entities for Anthem receiver settings."""
 
+from typing import override
+
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -37,15 +39,20 @@ class AnthemavListeningMode(AnthemavReceiverEntity, SelectEntity):
         super().__init__(config_entry, "listening_mode")
 
     @property
+    @override
     def options(self) -> list[str]:
         """Return the selectable options."""
-        return self._avr.audio_listening_mode_list
+        options: list[str] = self._avr.audio_listening_mode_list
+        return options
 
     @property
+    @override
     def current_option(self) -> str | None:
         """Return the current option."""
-        return self._avr.audio_listening_mode_text
+        current: str | None = self._avr.audio_listening_mode_text
+        return current
 
+    @override
     async def async_select_option(self, option: str) -> None:
         """Update the entity."""
         self._avr.audio_listening_mode_text = option
@@ -61,16 +68,19 @@ class AnthemavDolbyDynamicRange(AnthemavReceiverEntity, SelectEntity):
         super().__init__(config_entry, "dolby_dynamic_range")
 
     @property
+    @override
     def options(self) -> list[str]:
         """Return the selectable options."""
         return DYNAMIC_RANGE_OPTIONS
 
     @property
+    @override
     def current_option(self) -> str | None:
         """Return the current option."""
         text = self._avr.dolby_dynamic_range_text
         return text if text in DYNAMIC_RANGE_OPTIONS else None
 
+    @override
     async def async_select_option(self, option: str) -> None:
         """Update the entity."""
         self._avr.dolby_dynamic_range = DYNAMIC_RANGE_OPTIONS.index(option)
