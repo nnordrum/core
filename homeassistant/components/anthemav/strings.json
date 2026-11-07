@@ -15,5 +15,39 @@
         }
       }
     }
+  },
+  "entity": {
+    "number": {
+      "panel_brightness": {
+        "name": "Panel brightness"
+      }
+    },
+    "select": {
+      "dolby_dynamic_range": {
+        "name": "Dolby dynamic range"
+      },
+      "listening_mode": {
+        "name": "Listening mode"
+      }
+    },
+    "sensor": {
+      "audio_channels": {
+        "name": "Audio channels"
+      },
+      "audio_format": {
+        "name": "Audio format"
+      },
+      "video_resolution": {
+        "name": "Video resolution"
+      }
+    },
+    "switch": {
+      "arc": {
+        "name": "ARC room correction"
+      },
+      "standby_ip_control": {
+        "name": "Standby IP control"
+      }
+    }
   }
 }
